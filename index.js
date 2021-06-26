@@ -1,20 +1,20 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+require("dotenv").config();
 const ObjectId = require("mongodb").ObjectId;
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
 const { MongoClient } = require("mongodb");
-const uri =
-  "mongodb+srv://assinmentfull:ZfoYSkf5rjMqdydU@cluster0.obyna.mongodb.net/Book?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.obyna.mongodb.net/${process.env.DB_MAN}?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
